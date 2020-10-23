@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="menu" resource="default" engine="innodb" comment="Menu Table">
+        <column xsi:type="smallint" name="id" comment="Menu ID"
+                unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="identifier" comment="Identifier"
+                nullable="false" length="64"/>
+        <column xsi:type="varchar" name="name" comment="Name"
+                nullable="false" length="256"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <index referenceId="MENU_IDENTIFIER" indexType="btree">
+            <column name="identifier"/>
+        </index>
+        <index referenceId="MENU_NAME" indexType="fulltext">
+            <column name="name"/>
+        </index>
+    </table>
+    <table name="menu_item" resource="default" engine="innodb" comment="Menu Item Table">
+        <column xsi:type="smallint" name="id" comment="Menu Item ID"
+                unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="smallint" name="menu_id" comment="Menu ID"
+                unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="store_ids" comment="Store IDs"
+                nullable="false" length="255"/>
+        <column xsi:type="varchar" name="title" comment="Menu Item Title"
+                nullable="false" length="255"/>
+        <column xsi:type="varchar" name="type" comment="Menu Item Type"
+                nullable="false" length="16"/>
+        <column xsi:type="text" name="content" comment="Menu Item Content"
+                nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="MENU_ID" onDelete="CASCADE"
+                    table="menu_item" column="menu_id"
+                    referenceTable="menu" referenceColumn="id"/>
+        <index referenceId="MENU_ITEM_STORE_ID" indexType="btree">
+            <column name="store_ids"/>
+        </index>
+        <index referenceId="MENU_ITEM_TITLE" indexType="fulltext">
+            <column name="title"/>
+        </index>
+    </table>
+</schema>

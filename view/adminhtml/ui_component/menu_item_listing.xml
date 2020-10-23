@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">menu_item_listing.menu_item_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="add">
+                <label translate="true">Add New Item</label>
+                <class>primary</class>
+                <url path="*/*/new"/>
+            </button>
+        </buttons>
+        <spinner>menu_item_columns</spinner>
+        <deps>
+            <dep>menu_item_listing.menu_item_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="menu_item_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">block_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Common_Menu::menu</aclResource>
+        <dataProvider name="menu_item_listing_data_source"
+                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="menu_item_columns">
+        <settings>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">
+                        menu_item_listing.menu_item_listing.menu_item_columns_editor
+                    </item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="id">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">ID</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+        <column name="title">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Title</label>
+            </settings>
+        </column>
+        <column name="identifier">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Identifier</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions">
+            <settings>
+                <templates>
+                    <actions>
+                        <action name="edit">
+                            <index>0</index>
+                            <href>menu/item/edit</href>
+                            <label translate="true">Edit</label>
+                            <callback>
+                                <target>_self</target>
+                                <params>
+                                    <param name="id" xsi:type="string">id</param>
+                                </params>
+                            </callback>
+                        </action>
+                        <action name="remove">
+                            <index>1</index>
+                            <href>menu/item/delete</href>
+                            <label translate="true">Remove</label>
+                            <callback>
+                                <target>_self</target>
+                                <params>
+                                    <param name="id" xsi:type="string">id</param>
+                                </params>
+                            </callback>
+                        </action>
+                    </actions>
+                </templates>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

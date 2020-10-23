@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Common_Menu::menu" module="Common_Menu"
+             parent="Magento_Backend::content" resource="Common_Menu::menu"
+             title="Menu" translate="title" sortOrder="10"/>
+        <add id="Common_Menu::menu_menu" module="Common_Menu"
+             parent="Common_Menu::menu" resource="Common_Menu::menu_menu"
+             title="Menus" translate="title" sortOrder="10" action="menu/menu"/>
+        <add id="Common_Menu::menu_item" module="Common_Menu"
+             parent="Common_Menu::menu" resource="Common_Menu::menu_item"
+             title="Items" translate="title" sortOrder="20" action="menu/item"/>
+    </menu>
+</config>
