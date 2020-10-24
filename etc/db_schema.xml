@@ -23,13 +23,17 @@
                 unsigned="true" nullable="false" identity="true"/>
         <column xsi:type="smallint" name="menu_id" comment="Menu ID"
                 unsigned="true" nullable="false"/>
+        <column xsi:type="smallint" name="parent_id" comment="Parent ID"
+                unsigned="true" nullable="false" default="0"/>
         <column xsi:type="varchar" name="store_ids" comment="Store IDs"
                 nullable="false" length="255"/>
-        <column xsi:type="varchar" name="title" comment="Menu Item Title"
+        <column xsi:type="smallint" name="order" comment="Sort Order"
+                unsigned="true" nullable="false" default="999"/>
+        <column xsi:type="varchar" name="title" comment="Title"
                 nullable="false" length="255"/>
-        <column xsi:type="varchar" name="type" comment="Menu Item Type"
-                nullable="false" length="16"/>
-        <column xsi:type="text" name="content" comment="Menu Item Content"
+        <column xsi:type="varchar" name="type" comment="Type"
+                nullable="false" length="32"/>
+        <column xsi:type="text" name="content" comment="Content"
                 nullable="false"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
@@ -37,8 +41,14 @@
         <constraint xsi:type="foreign" referenceId="MENU_ID" onDelete="CASCADE"
                     table="menu_item" column="menu_id"
                     referenceTable="menu" referenceColumn="id"/>
+        <index referenceId="MENU_ITEM_MENU_ID" indexType="btree">
+            <column name="menu_id"/>
+        </index>
         <index referenceId="MENU_ITEM_STORE_ID" indexType="btree">
             <column name="store_ids"/>
+        </index>
+        <index referenceId="MENU_ITEM_ORDER" indexType="btree">
+            <column name="order"/>
         </index>
         <index referenceId="MENU_ITEM_TITLE" indexType="fulltext">
             <column name="title"/>

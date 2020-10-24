@@ -3,35 +3,35 @@
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">menu_menu_listing.menu_menu_listing_data_source</item>
+            <item name="provider" xsi:type="string">menu_menu_listing.listing_data_source</item>
         </item>
     </argument>
     <settings>
         <buttons>
             <button name="add">
-                <url path="*/*/new"/>
-                <class>primary</class>
                 <label translate="true">Add New Menu</label>
+                <class>primary</class>
+                <url path="*/*/new"/>
             </button>
         </buttons>
         <spinner>menu_menu_columns</spinner>
         <deps>
-            <dep>menu_menu_listing.menu_menu_listing_data_source</dep>
+            <dep>menu_menu_listing.menu_menu_listing_data_provider</dep>
         </deps>
     </settings>
-    <dataSource name="menu_menu_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Common_Menu::menu</aclResource>
-        <dataProvider name="menu_menu_listing_data_source"
-                      class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <aclResource>Common_Menu::menu_menu</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="menu_menu_listing_data_provider">
             <settings>
-                <requestFieldName>id</requestFieldName>
                 <primaryFieldName>id</primaryFieldName>
+                <requestFieldName>id</requestFieldName>
             </settings>
         </dataProvider>
     </dataSource>
@@ -95,36 +95,13 @@
                 <label translate="true">Identifier</label>
             </settings>
         </column>
-        <actionsColumn name="actions">
+        <actionsColumn name="actions" class="Common\Base\Ui\Component\Listing\Column\Actions">
             <settings>
-                <templates>
-                    <actions>
-                        <action name="edit">
-                            <index>0</index>
-                            <href>menu/menu/edit</href>
-                            <label translate="true">Edit</label>
-                            <callback>
-                                <provider>menu_menu_listing.menu_menu_listing_data_source</provider>
-                                <target>menu</target>
-                                <params>
-                                    <param name="id" xsi:type="string">id</param>
-                                </params>
-                            </callback>
-                        </action>
-                        <action name="remove">
-                            <index>1</index>
-                            <href>menu/menu/delete</href>
-                            <label translate="true">Remove</label>
-                            <callback>
-                                <provider>menu_menu_listing.menu_menu_listing_data_source</provider>
-                                <target>menu</target>
-                                <params>
-                                    <param name="id" xsi:type="string">id</param>
-                                </params>
-                            </callback>
-                        </action>
-                    </actions>
-                </templates>
+                <fieldAction>
+                    <params>
+                        <param name="route" xsi:type="string">menu/menu</param>
+                    </params>
+                </fieldAction>
             </settings>
         </actionsColumn>
     </columns>

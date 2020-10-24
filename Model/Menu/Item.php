@@ -2,11 +2,9 @@
 
 namespace Common\Menu\Model\Menu;
 
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\Model\AbstractModel;
-use Magento\Store\Model\Store;
+use Common\Base\Model\AbstractStoreModel;
 
-class Item extends AbstractModel
+class Item extends AbstractStoreModel
 {
     /**
      * {@inheritDoc}

@@ -11,17 +11,17 @@ class Collection extends AbstractCollection
     /**
      * @var string
      */
-    protected string $_idFieldName = 'id';
+    protected $_idFieldName = 'id';
 
     /**
      * @var string
      */
-    protected string $_eventPrefix = 'menu_menu_collection';
+    protected $_eventPrefix = 'menu_menu_collection';
 
     /**
      * @var string
      */
-    protected string $_eventObject = 'collection';
+    protected $_eventObject = 'collection';
 
     /**
      * @return void

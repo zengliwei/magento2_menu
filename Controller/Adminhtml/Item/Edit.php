@@ -5,9 +5,8 @@ namespace Common\Menu\Controller\Adminhtml\Item;
 use Common\Base\Controller\Adminhtml\AbstractEditAction;
 use Common\Menu\Model\Menu\Item;
 use Common\Menu\Model\ResourceModel\Menu\Item as ResourceItem;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 
-class Edit extends AbstractEditAction implements HttpGetActionInterface
+class Edit extends AbstractEditAction
 {
     public const ADMIN_RESOURCE = 'Common_Menu::menu_item';
 
@@ -20,7 +19,7 @@ class Edit extends AbstractEditAction implements HttpGetActionInterface
             Item::class,
             ResourceItem::class,
             'Specified item does not exist.',
-            'IndieMenu::menu_item',
+            'Common_Menu::menu_menu',
             'Create Menu Item',
             'Edit Menu Item (ID: %1)'
         );

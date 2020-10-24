@@ -4,10 +4,10 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="menu_menu_listing_data_source" xsi:type="string">
+                <item name="menu_menu_listing_data_provider" xsi:type="string">
                     Common\Menu\Model\ResourceModel\Menu\Grid\Collection
                 </item>
-                <item name="menu_item_listing_data_source" xsi:type="string">
+                <item name="menu_item_listing_data_provider" xsi:type="string">
                     Common\Menu\Model\ResourceModel\Menu\Item\Grid\Collection
                 </item>
             </argument>

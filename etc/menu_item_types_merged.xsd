@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:redefine schemaLocation="urn:magento:module:Common_Menu:etc/menu_item_types.xsd">
+        <xs:complexType name="typeDeclaration">
+            <xs:complexContent>
+                <xs:restriction base="typeDeclaration">
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="label" type="xs:string" use="required" />
+                    <xs:attribute name="sort_order" type="xs:int" use="optional" default="9999"/>
+                    <xs:attribute name="renderer" type="className" use="optional" />
+                </xs:restriction>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:redefine>
+</xs:schema>

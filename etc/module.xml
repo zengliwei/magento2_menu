@@ -6,6 +6,7 @@
             <module name="Common_Base"/>
             <module name="Magento_Catalog"/>
             <module name="Magento_Cms"/>
+            <module name="Magento_Store"/>
         </sequence>
     </module>
 </config>

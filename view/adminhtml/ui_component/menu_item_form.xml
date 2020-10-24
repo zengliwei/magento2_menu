@@ -3,7 +3,7 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">menu_menu_form.form_data_source</item>
+            <item name="provider" xsi:type="string">menu_item_form.form_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">General Information</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
@@ -27,7 +27,7 @@
                         <item name="buttonAdapter" xsi:type="array">
                             <item name="actions" xsi:type="array">
                                 <item name="0" xsi:type="array">
-                                    <item name="targetName" xsi:type="string">menu_menu_form.menu_menu_form</item>
+                                    <item name="targetName" xsi:type="string">menu_item_form.menu_item_form</item>
                                     <item name="actionName" xsi:type="string">save</item>
                                     <item name="params" xsi:type="array">
                                         <item name="0" xsi:type="boolean">true</item>
@@ -51,7 +51,7 @@
                                     <item name="actions" xsi:type="array">
                                         <item name="0" xsi:type="array">
                                             <item name="targetName" xsi:type="string">
-                                                menu_menu_form.menu_menu_form
+                                                menu_item_form.menu_item_form
                                             </item>
                                             <item name="actionName" xsi:type="string">save</item>
                                             <item name="params" xsi:type="array">
@@ -69,10 +69,10 @@
                 </param>
             </button>
         </buttons>
-        <namespace>menu_menu_form</namespace>
+        <namespace>menu_item_form</namespace>
         <dataScope>data</dataScope>
         <deps>
-            <dep>menu_menu_form.menu_menu_form_data_provider</dep>
+            <dep>menu_item_form.menu_item_form_data_provider</dep>
         </deps>
     </settings>
     <dataSource name="form_data_source">
@@ -82,10 +82,10 @@
             </item>
         </argument>
         <settings>
-            <submitUrl path="menu/menu/save"/>
+            <submitUrl path="menu/item/save"/>
         </settings>
-        <dataProvider class="Common\Menu\Model\Menu\DataProvider"
-                      name="menu_menu_form_data_provider">
+        <dataProvider class="Common\Menu\Model\Menu\Item\DataProvider"
+                      name="menu_item_form_data_provider">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>id</primaryFieldName>
@@ -96,7 +96,7 @@
         <settings>
             <label/>
         </settings>
-        <field name="id" formElement="input">
+        <field name="id" formElement="input" sortOrder="100">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
@@ -108,22 +108,7 @@
                 <dataScope>data.id</dataScope>
             </settings>
         </field>
-        <field name="name" formElement="input" sortOrder="20">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="source" xsi:type="string">data</item>
-                </item>
-            </argument>
-            <settings>
-                <label translate="true">Name</label>
-                <dataType>text</dataType>
-                <dataScope>data.name</dataScope>
-                <validation>
-                    <rule name="required-entry" xsi:type="boolean">true</rule>
-                </validation>
-            </settings>
-        </field>
-        <field name="identifier" formElement="input">
+        <field name="title" formElement="input" sortOrder="200">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
@@ -131,15 +116,120 @@
             </argument>
             <settings>
                 <dataType>text</dataType>
-                <dataScope>data.identifier</dataScope>
-                <label translate="true">Identifier</label>
+                <dataScope>data.title</dataScope>
+                <label translate="true">Title</label>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
-                    <rule name="no-marginal-whitespace" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
         </field>
-        <field name="store_ids" formElement="multiselect" class="Magento\Store\Ui\Component\Form\Field\StoreView">
+        <field name="type" formElement="select" sortOrder="300">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <dataScope>data.type</dataScope>
+                <label translate="true">Type</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <switcherConfig>
+                    <enabled>true</enabled>
+                    <rules>
+                        <rule name="0">
+                            <value>default</value>
+                            <actions>
+                                <action name="0">
+                                    <target>menu_item_form.menu_item_form.general.content</target>
+                                    <callback>show</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="1">
+                            <value>catalog_category_tree</value>
+                            <actions>
+                                <action name="0">
+                                    <target>menu_item_form.menu_item_form.general.content</target>
+                                    <callback>hide</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                        <rule name="2">
+                            <value>cms_page</value>
+                            <actions>
+                                <action name="0">
+                                    <target>menu_item_form.menu_item_form.general.content</target>
+                                    <callback>hide</callback>
+                                </action>
+                            </actions>
+                        </rule>
+                    </rules>
+                </switcherConfig>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Ui\Component\Menu\Item\Types"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="content" formElement="input" sortOrder="400">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataScope>data.content</dataScope>
+                <label translate="true">URL</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="parent_id" formElement="select" sortOrder="500">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <dataScope>data.parent_id</dataScope>
+                <label translate="true">Parent</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Ui\Component\Menu\Item\Options"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="order" formElement="input" sortOrder="600">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <dataScope>data.order</dataScope>
+                <label translate="true">Sort Order</label>
+                <validation>
+                    <rule name="validate-digits" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="store_ids" formElement="multiselect" sortOrder="700"
+               class="Magento\Store\Ui\Component\Form\Field\StoreView">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
@@ -160,6 +250,28 @@
                         <options class="Common\Base\Ui\Component\Store\Options"/>
                     </settings>
                 </multiselect>
+            </formElements>
+        </field>
+        <field name="menu_id" formElement="select" sortOrder="800">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <dataScope>data.menu_id</dataScope>
+                <label translate="true">Menu</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Model\ResourceModel\Menu\Collection"/>
+                    </settings>
+                </select>
             </formElements>
         </field>
     </fieldset>
