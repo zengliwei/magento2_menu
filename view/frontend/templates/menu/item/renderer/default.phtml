@@ -1,0 +1,12 @@
+<?php
+
+use Common\Menu\Block\Menu\Item\Renderer\DefaultRenderer;
+
+/* @var $block DefaultRenderer */
+$item = $block->getItem();
+?>
+<li class="">
+    <a href="<?= $item['url'] ?>">
+        <span><?= $block->escapeHtml($item['title']) ?></span>
+    </a>
+</li>

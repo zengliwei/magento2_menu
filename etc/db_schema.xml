@@ -11,9 +11,9 @@
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
-        <index referenceId="MENU_IDENTIFIER" indexType="btree">
+        <constraint xsi:type="unique" referenceId="MENU_IDENTIFIER">
             <column name="identifier"/>
-        </index>
+        </constraint>
         <index referenceId="MENU_NAME" indexType="fulltext">
             <column name="name"/>
         </index>

@@ -28,12 +28,23 @@ class Type
     public function getTypes()
     {
         if ($this->types === null) {
-            $menuItemTypes = $this->config->getAll();
-            foreach ($menuItemTypes as &$info) {
+            $types = [];
+            foreach ($this->config->getAll() as $info) {
                 $info['label'] = __($info['label']);
+                $types[$info['name']] = $info;
             }
-            $this->types = $menuItemTypes;
+            $this->types = $types;
         }
         return $this->types;
+    }
+
+    /**
+     * @param string $name
+     * @return array|null
+     */
+    public function getType($name)
+    {
+        $this->getTypes();
+        return $this->types[$name] ?? null;
     }
 }

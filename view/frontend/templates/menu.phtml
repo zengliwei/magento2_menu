@@ -1,0 +1,12 @@
+<?php
+
+use Common\Menu\Block\Menu;
+
+/* @var $block Menu */
+
+?>
+<nav class="navigation" data-action="navigation">
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <?= $block->getMenuItemHtml() ?>
+    </ul>
+</nav>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="store.menu">
+            <block name="main_menu" class="Common\Menu\Block\Menu"
+                   template="Common_Menu::menu.phtml" before="-">
+                <arguments>
+                    <argument name="identifier" xsi:type="string">main_menu</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+    </body>
+</page>
