@@ -1,0 +1,22 @@
+<?php
+
+use Common\Menu\Block\Menu\Item;
+
+/* @var $block Item */
+$level = $block->getData('level');
+$class = $block->getData('class');
+$children = $block->getData('children');
+$hasChild = !empty($children);
+?>
+<li class="<?= $class ?> level<?= $level ?> <?= $level == 0 ? 'level-top' : '' ?> <?= $hasChild ? 'parent' : '' ?>">
+    <a href="<?= $block->getData('url') ?>" <?= $level == 0 ? 'class="level-top"' : '' ?>>
+        <span><?= $block->getData('title') ?></span>
+    </a>
+    <?php if ($hasChild) : ?>
+        <ul class="submenu level<?= $level ?>">
+            <?php foreach ($children as $child) : ?>
+                <?= $child->toHtml() ?>
+            <?php endforeach ?>
+        </ul>
+    <?php endif; ?>
+</li>

@@ -2,28 +2,49 @@
 
 namespace Common\Menu\Block\Menu\Item\Renderer;
 
-use Common\Menu\Model\Menu\Item;
-use Magento\Framework\View\Element\Template;
+use Common\Menu\Block\Menu\Item;
+use Magento\Framework\Data\Tree\Node;
 
-class DefaultRenderer extends Template
+class DefaultRenderer extends AbstractRenderer
 {
-    protected $_template = 'Common_Menu::menu/item/renderer/default.phtml';
-
     /**
-     * @return array
+     * @inheritDoc
      */
-    public function getItem()
+    protected function buildItemBlocks()
     {
-        /* @var $item Item */
-        $item = $this->getData('item');
+        /* @var $node Node */
+        $node = $this->getData('node');
 
-        $url = preg_match('/^https?:\/\//', $item->getData('title'))
-            ? $item->getData('title')
-            : $this->_urlBuilder->getUrl();
+        $url = preg_match('/^https?:\/\//', $node->getData('content'))
+            ? $node->getData('content')
+            : $this->_urlBuilder->getUrl($node->getData('content'));
 
-        return [
-            'title' => $item->getData('title'),
-            'url'   => $url
+        $children = [];
+        foreach ($node->getChildren() as $child) {
+            /* @var $renderer AbstractRenderer */
+            $renderer = $this->getLayout()->createBlock(
+                $child->getData('renderer'),
+                'menu_item_renderer_' . $child->getData('id'),
+                ['data' => ['node' => $child, 'level' => $this->getData('level') + 1]]
+            );
+            foreach ($renderer->getItemBlocks() as $itemBlock) {
+                $children[] = $itemBlock;
+            }
+        }
+
+        $this->itemBlocks = [
+            $this->getLayout()->createBlock(
+                Item::class,
+                '',
+                [
+                    'data' => [
+                        'title'    => $node->getData('title'),
+                        'url'      => $url,
+                        'level'    => $this->getData('level'),
+                        'children' => $children
+                    ]
+                ]
+            )
         ];
     }
 }

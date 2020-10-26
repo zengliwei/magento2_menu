@@ -65,10 +65,31 @@
                 </settings>
             </filterSelect>
         </filters>
+        <massaction name="listing_actions">
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>menu_item_listing.menu_item_listing.menu_item_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
         <paging name="listing_paging"/>
     </listingToolbar>
     <columns name="menu_item_columns">
         <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="menu/item/massSave"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">menu_item_listing.menu_item_listing.menu_item_columns.ids</param>
+            </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
                     <item name="provider" xsi:type="string">
@@ -98,6 +119,40 @@
             <settings>
                 <filter>text</filter>
                 <label translate="true">Title</label>
+                <editor>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+            </settings>
+        </column>
+        <column name="order">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Sort Order</label>
+                <editor>
+                    <validation>
+                        <rule name="validate-digits" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
+                </editor>
+            </settings>
+        </column>
+        <column name="parent_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Parent</label>
+                <options class="Common\Menu\Ui\Component\Menu\Item\Options"/>
+            </settings>
+        </column>
+        <column name="menu_id" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Menu</label>
+                <options class="Common\Menu\Model\ResourceModel\Menu\Collection"/>
             </settings>
         </column>
         <column name="store_ids" class="Magento\Store\Ui\Component\Listing\Column\Store">

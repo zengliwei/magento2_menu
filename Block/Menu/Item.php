@@ -2,25 +2,9 @@
 
 namespace Common\Menu\Block\Menu;
 
-use Magento\Framework\View\Element\AbstractBlock;
+use Magento\Framework\View\Element\Template;
 
-class Item extends AbstractBlock
+class Item extends Template
 {
-    public function toHtml()
-    {
-        $item = $this->getData('item');
-        if (!($item instanceof \Common\Menu\Model\Menu\Item)) {
-            return '';
-        }
-        if ($item->getRenderer()) {
-            return $this->_layout->createBlock(
-                $item->getRenderer(),
-                '',
-                [
-                    'data' => ['item' => $item]
-                ]
-            )->toHtml();
-        }
-        return '';
-    }
+    protected $_template = 'Common_Menu::menu/item.phtml';
 }
