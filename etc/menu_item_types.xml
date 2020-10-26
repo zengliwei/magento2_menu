@@ -5,6 +5,4 @@
           renderer="Common\Menu\Block\Menu\Item\Renderer\DefaultRenderer"/>
     <type name="catalog_category_tree" label="Catalog Category Tree" sort_order="2"
           renderer="Common\Menu\Block\Menu\Item\Renderer\CatalogCategoryTree"/>
-    <type name="cms_page" label="CMS Page" sort_order="3"
-          renderer="Common\Menu\Block\Menu\Item\Renderer\CmsPage"/>
 </config>

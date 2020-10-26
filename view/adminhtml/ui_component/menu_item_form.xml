@@ -157,15 +157,6 @@
                                 </action>
                             </actions>
                         </rule>
-                        <rule name="2">
-                            <value>cms_page</value>
-                            <actions>
-                                <action name="0">
-                                    <target>menu_item_form.menu_item_form.general.content</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
                     </rules>
                 </switcherConfig>
             </settings>
