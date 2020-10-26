@@ -4,12 +4,21 @@
     <body>
         <referenceBlock name="store.menu">
             <block name="main_menu" class="Common\Menu\Block\Menu"
-                   template="Common_Menu::menu.phtml" ttl="3600" before="-">
+                   template="Common_Menu::main_menu.phtml" ttl="3600" before="-">
                 <arguments>
                     <argument name="identifier" xsi:type="string">main_menu</argument>
                 </arguments>
             </block>
         </referenceBlock>
+        <referenceBlock name="footer">
+            <block name="footer_menu" class="Common\Menu\Block\Menu"
+                   template="Common_Menu::footer_menu.phtml" ttl="3600" before="-">
+                <arguments>
+                    <argument name="identifier" xsi:type="string">footer_menu</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
         <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="footer_links"  remove="true"/>
     </body>
 </page>
