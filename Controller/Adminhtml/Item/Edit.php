@@ -17,7 +17,7 @@ class Edit extends AbstractEditAction
         return $this->parsePage(
             Item::class,
             'Specified item does not exist.',
-            'Common_Menu::menu_menu',
+            'Common_Menu::menu_item',
             'Create Menu Item',
             'Edit Menu Item (ID: %1)'
         );
