@@ -14,7 +14,7 @@ class Edit extends AbstractEditAction
      */
     public function execute()
     {
-        return $this->parsePage(
+        return $this->render(
             Menu::class,
             'Specified menu does not exist.',
             'Common_Menu::menu_menu',

@@ -13,10 +13,10 @@ class Index extends AbstractIndexAction
      */
     public function execute()
     {
-        return $this->parsePage(
+        return $this->render(
             'menu_menu',
             'Common_Menu::menu_menu',
-            'Menu'
+            'Menus'
         );
     }
 }
