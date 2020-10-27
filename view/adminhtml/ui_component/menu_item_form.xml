@@ -143,8 +143,19 @@
                             <value>default</value>
                             <actions>
                                 <action name="0">
-                                    <target>menu_item_form.menu_item_form.general.content</target>
+                                    <target>menu_item_form.menu_item_form.general.url</target>
                                     <callback>show</callback>
+                                </action>
+                                <action name="1">
+                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
+                                    <callback>show</callback>
+                                </action>
+                                <action name="2">
+                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
+                                    <callback>value</callback>
+                                    <params>
+                                        <param name="0" xsi:type="string"></param>
+                                    </params>
                                 </action>
                             </actions>
                         </rule>
@@ -152,7 +163,11 @@
                             <value>catalog_category_tree</value>
                             <actions>
                                 <action name="0">
-                                    <target>menu_item_form.menu_item_form.general.content</target>
+                                    <target>menu_item_form.menu_item_form.general.url</target>
+                                    <callback>hide</callback>
+                                </action>
+                                <action name="1">
+                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
                                     <callback>hide</callback>
                                 </action>
                             </actions>
@@ -168,19 +183,33 @@
                 </select>
             </formElements>
         </field>
-        <field name="content" formElement="input" sortOrder="400">
+        <field name="url" formElement="input" sortOrder="400">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
                 </item>
             </argument>
             <settings>
-                <dataScope>data.content</dataScope>
+                <dataScope>data.url</dataScope>
                 <label translate="true">URL</label>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
+        </field>
+        <field name="functional_urls" formElement="select" sortOrder="410">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Ui\Component\Menu\Item\FunctionalUrls"/>
+                    </settings>
+                </select>
+            </formElements>
         </field>
         <field name="parent_id" formElement="select" sortOrder="500">
             <argument name="data" xsi:type="array">

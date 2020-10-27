@@ -15,9 +15,9 @@ class DefaultRenderer extends AbstractRenderer
         /* @var $node Node */
         $node = $this->getData('node');
 
-        $url = preg_match('/^https?:\/\//', $node->getData('content'))
-            ? $node->getData('content')
-            : $this->_urlBuilder->getBaseUrl() . trim($node->getData('content'), '/');
+        $url = preg_match('/^https?:\/\//', $node->getData('url'))
+            ? $node->getData('url')
+            : $this->_urlBuilder->getBaseUrl() . trim($node->getData('url'), '/');
 
         $children = [];
         foreach ($node->getChildren() as $child) {

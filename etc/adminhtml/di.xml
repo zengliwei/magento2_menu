@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Common\Menu\Ui\Component\Menu\Item\FunctionalUrls">
+        <arguments>
+            <argument name="urls" xsi:type="array">
+                <item name="Catalog" xsi:type="array">
+                    <item name="catalogsearch/advanced" xsi:type="string">catalogsearch/advanced</item>
+                    <item name="search/term/popular" xsi:type="string">search/term/popular</item>
+                </item>
+                <item name="Customer" xsi:type="array">
+                    <item name="customer/account/login" xsi:type="string">customer/account/login</item>
+                    <item name="customer/account/create" xsi:type="string">customer/account/create</item>
+                </item>
+                <item name="Sales" xsi:type="array">
+                    <item name="sales/guest/form" xsi:type="string">sales/guest/form</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

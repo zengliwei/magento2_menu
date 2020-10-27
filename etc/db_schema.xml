@@ -33,7 +33,7 @@
                 nullable="false" length="255"/>
         <column xsi:type="varchar" name="type" comment="Type"
                 nullable="false" length="32"/>
-        <column xsi:type="text" name="content" comment="Content"
+        <column xsi:type="text" name="url" comment="URL"
                 nullable="false"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
