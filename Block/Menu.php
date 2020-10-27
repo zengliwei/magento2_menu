@@ -137,9 +137,10 @@ class Menu extends Template
             ->addFieldToFilter('menu_id', ['eq' => $this->getMenu()->getId()])
             ->addOrder('main_table.order', ItemCollection::SORT_ORDER_ASC);
 
-        /* @var $tree Tree */
+        /* @var Tree $tree Item model tree */
         $tree = $this->treeFactory->create();
-        $tree->addNode(new Node(['id' => 0], 'id', $tree));
+        $rootNode = new Node(['id' => 0], 'id', $tree);
+        $tree->addNode($rootNode);
         foreach ($itemCollection as $item) {
             /* @var $item Item */
             $parentNode = $this->getParentNode($tree, $itemCollection, $item->getData('parent_id'));
@@ -147,17 +148,15 @@ class Menu extends Template
         }
 
         $html = '';
-        foreach ($tree->getNodes() as $node) {
-            if ($node->getData('renderer')) {
-                /* @var $renderer AbstractRenderer */
-                $renderer = $this->getLayout()->createBlock(
-                    $node->getData('renderer'),
-                    'menu_item_renderer_' . $node->getData('id'),
-                    ['data' => ['node' => $node, 'level' => 0]]
-                );
-                foreach ($renderer->getItemBlocks() as $itemBlock) {
-                    $html .= $itemBlock->toHtml();
-                }
+        foreach ($rootNode->getChildren() as $node) {
+            /* @var $renderer AbstractRenderer */
+            $renderer = $this->getLayout()->createBlock(
+                $node->getData('renderer'),
+                'menu_item_renderer_' . $node->getData('id'),
+                ['data' => ['node' => $node, 'level' => 0]]
+            );
+            foreach ($renderer->getItemBlocks() as $itemBlock) {
+                $html .= $itemBlock->toHtml();
             }
         }
         return $html;
