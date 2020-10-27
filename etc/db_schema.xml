@@ -26,15 +26,15 @@
         <column xsi:type="smallint" name="parent_id" comment="Parent ID"
                 unsigned="true" nullable="false" default="0"/>
         <column xsi:type="varchar" name="store_ids" comment="Store IDs"
-                nullable="false" length="255"/>
+                nullable="false" length="255" default="0"/>
         <column xsi:type="smallint" name="order" comment="Sort Order"
                 unsigned="true" nullable="false" default="999"/>
         <column xsi:type="varchar" name="title" comment="Title"
                 nullable="false" length="255"/>
         <column xsi:type="varchar" name="type" comment="Type"
-                nullable="false" length="32"/>
+                nullable="false" length="32" default="default"/>
         <column xsi:type="text" name="url" comment="URL"
-                nullable="false"/>
+                nullable="true"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>
