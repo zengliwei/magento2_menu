@@ -17,6 +17,10 @@ class DataProvider extends AbstractDataProvider
      */
     protected $functionalUrls;
 
+    /**
+     * @var Type
+     */
+    protected $itemType;
 
     /**
      * @param string                 $name
@@ -24,6 +28,7 @@ class DataProvider extends AbstractDataProvider
      * @param string                 $requestFieldName
      * @param FunctionalUrls         $functionalUrls
      * @param DataPersistorInterface $dataPersistor
+     * @param Type                   $itemType
      * @param array                  $meta
      * @param array                  $data
      * @param PoolInterface|null     $pool
@@ -34,6 +39,7 @@ class DataProvider extends AbstractDataProvider
         $requestFieldName,
         FunctionalUrls $functionalUrls,
         DataPersistorInterface $dataPersistor,
+        Type $itemType,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
@@ -41,6 +47,7 @@ class DataProvider extends AbstractDataProvider
         parent::__construct($name, $primaryFieldName, $requestFieldName, $dataPersistor, $meta, $data, $pool);
 
         $this->functionalUrls = $functionalUrls;
+        $this->itemType = $itemType;
     }
 
     /**
@@ -51,7 +58,54 @@ class DataProvider extends AbstractDataProvider
         $this->initCollection(Collection::class);
     }
 
-    protected function customizeFunctionalUrl()
+    /**
+     * @return void
+     */
+    protected function customizeTypes()
+    {
+        $rules = [
+            [
+                'value'   => 'default',
+                'actions' => [
+                    ['target' => 'menu_item_form.menu_item_form.general.url', 'callback' => 'show'],
+                    ['target' => 'menu_item_form.menu_item_form.general.functional_urls', 'callback' => 'show'],
+                    [
+                        'target'   => 'menu_item_form.menu_item_form.general.functional_urls',
+                        'callback' => 'value',
+                        'params'   => [0]
+                    ]
+                ]
+            ]
+        ];
+        foreach ($this->itemType->getTypes() as $type) {
+            if ($type['name'] != 'default') {
+                $rules[] = [
+                    'value'   => $type['name'],
+                    'actions' => [
+                        ['target' => 'menu_item_form.menu_item_form.general.url', 'callback' => 'hide'],
+                        ['target' => 'menu_item_form.menu_item_form.general.functional_urls', 'callback' => 'hide']
+                    ]
+                ];
+            }
+        }
+        $this->meta['general']['children']['type'] = [
+            'arguments' => [
+                'data' => [
+                    'config' => [
+                        'switcherConfig' => [
+                            'enabled' => true,
+                            'rules'   => $rules
+                        ]
+                    ]
+                ]
+            ]
+        ];
+    }
+
+    /**
+     * @return void
+     */
+    protected function customizeFunctionalUrls()
     {
         $rules = [];
         foreach ($this->functionalUrls->getUrls() as $urls) {
@@ -68,20 +122,13 @@ class DataProvider extends AbstractDataProvider
                 ];
             }
         }
-
-        $this->meta = [
-            'general' => [
-                'children' => [
-                    'functional_urls' => [
-                        'arguments' => [
-                            'data' => [
-                                'config' => [
-                                    'switcherConfig' => [
-                                        'enabled' => true,
-                                        'rules'   => $rules
-                                    ]
-                                ]
-                            ]
+        $this->meta['general']['children']['functional_urls'] = [
+            'arguments' => [
+                'data' => [
+                    'config' => [
+                        'switcherConfig' => [
+                            'enabled' => true,
+                            'rules'   => $rules
                         ]
                     ]
                 ]
@@ -94,7 +141,9 @@ class DataProvider extends AbstractDataProvider
      */
     public function getMeta()
     {
-        $this->customizeFunctionalUrl();
+        $this->meta = ['general' => ['children' => []]];
+        $this->customizeTypes();
+        $this->customizeFunctionalUrls();
         return parent::getMeta();
     }
 }

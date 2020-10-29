@@ -136,44 +136,6 @@
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
-                <switcherConfig>
-                    <enabled>true</enabled>
-                    <rules>
-                        <rule name="0">
-                            <value>default</value>
-                            <actions>
-                                <action name="0">
-                                    <target>menu_item_form.menu_item_form.general.url</target>
-                                    <callback>show</callback>
-                                </action>
-                                <action name="1">
-                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
-                                    <callback>show</callback>
-                                </action>
-                                <action name="2">
-                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
-                                    <callback>value</callback>
-                                    <params>
-                                        <param name="0" xsi:type="string"></param>
-                                    </params>
-                                </action>
-                            </actions>
-                        </rule>
-                        <rule name="1">
-                            <value>catalog_category_tree</value>
-                            <actions>
-                                <action name="0">
-                                    <target>menu_item_form.menu_item_form.general.url</target>
-                                    <callback>hide</callback>
-                                </action>
-                                <action name="1">
-                                    <target>menu_item_form.menu_item_form.general.functional_urls</target>
-                                    <callback>hide</callback>
-                                </action>
-                            </actions>
-                        </rule>
-                    </rules>
-                </switcherConfig>
             </settings>
             <formElements>
                 <select>
