@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Model\Menu;
 
 use Common\Base\Model\AbstractStoreModel;
@@ -51,19 +52,19 @@ class Item extends AbstractStoreModel
     }
 
     /**
-     * {@inheritDoc}
-     */
-    protected function _construct()
-    {
-        $this->_init(\Common\Menu\Model\ResourceModel\Menu\Item::class);
-    }
-
-    /**
      * @return string|null
      */
     public function getRenderer()
     {
         $typeInfo = $this->type->getType($this->getData('type'));
         return $typeInfo['renderer'] ?? null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function _construct()
+    {
+        $this->_init(\Common\Menu\Model\ResourceModel\Menu\Item::class);
     }
 }

@@ -15,10 +15,11 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Setup\Patch\Data;
 
-use Common\Menu\Model\MenuFactory;
 use Common\Menu\Model\Menu\ItemFactory;
+use Common\Menu\Model\MenuFactory;
 use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
 use Common\Menu\Model\ResourceModel\Menu\Item as ResourceItem;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
@@ -66,6 +67,14 @@ class DefaultMenu implements DataPatchInterface
     /**
      * {@inheritdoc}
      */
+    public static function getDependencies()
+    {
+        return [];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function apply()
     {
         $menuSource = [
@@ -95,14 +104,6 @@ class DefaultMenu implements DataPatchInterface
                 $this->resourceItem->save($item->setData($itemData));
             }
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getDependencies()
-    {
-        return [];
     }
 
     /**

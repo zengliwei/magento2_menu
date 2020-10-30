@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Model\Menu\Item\Type\Config;
 
 use Magento\Framework\Config\Dom;
@@ -25,14 +26,14 @@ use Magento\Framework\Config\ValidationStateInterface;
 class Reader extends Filesystem
 {
     /**
-     * @param FileResolverInterface $fileResolver
-     * @param Converter $converter
-     * @param SchemaLocator $schemaLocator
+     * @param FileResolverInterface    $fileResolver
+     * @param Converter                $converter
+     * @param SchemaLocator            $schemaLocator
      * @param ValidationStateInterface $validationState
-     * @param string $fileName
-     * @param array $idAttributes
-     * @param string $domDocumentClass
-     * @param string $defaultScope
+     * @param string                   $fileName
+     * @param array                    $idAttributes
+     * @param string                   $domDocumentClass
+     * @param string                   $defaultScope
      */
     public function __construct(
         FileResolverInterface $fileResolver,

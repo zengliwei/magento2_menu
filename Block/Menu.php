@@ -15,13 +15,14 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Block;
 
 use Common\Menu\Block\Menu\Item\Renderer\AbstractRenderer;
 use Common\Menu\Model\Menu as Model;
+use Common\Menu\Model\Menu\Item;
 use Common\Menu\Model\MenuFactory;
 use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
-use Common\Menu\Model\Menu\Item;
 use Common\Menu\Model\ResourceModel\Menu\Item\Collection as ItemCollection;
 use Common\Menu\Model\ResourceModel\Menu\Item\CollectionFactory as ItemCollectionFactory;
 use Magento\Framework\Data\Tree;
@@ -94,51 +95,6 @@ class Menu extends Template
     }
 
     /**
-     * @inheritDoc
-     */
-    protected function _toHtml()
-    {
-        if (!$this->getMenu()->getId()) {
-            return '';
-        }
-        return parent::_toHtml();
-    }
-
-    /**
-     * @return Model
-     */
-    public function getMenu()
-    {
-        if ($this->menu === null) {
-            $this->menu = $this->menuFactory->create();
-            if ($this->getData('identifier')) {
-                $this->resourceMenu->load($this->menu, $this->getData('identifier'), 'identifier');
-            }
-        }
-        return $this->menu;
-    }
-
-    /**
-     * @param Tree           $tree
-     * @param ItemCollection $itemCollection
-     * @param int            $parentId
-     * @return Node
-     */
-    protected function getParentNode($tree, $itemCollection, $parentId)
-    {
-        if (($parentNode = $tree->getNodeById($parentId)) === null) {
-            /* @var $parentItem Item */
-            $parentItem = $itemCollection->getItemById($parentId);
-            $parentData = $parentItem->getData();
-            $parentNode = $tree->appendChild(
-                array_merge($parentData, ['renderer' => $parentItem->getRenderer()]),
-                $this->getParentNode($tree, $itemCollection, $parentData['parent_id'])
-            );
-        }
-        return $parentNode;
-    }
-
-    /**
      * Menu Block > Item Renderer > Item Block
      *
      * @return string
@@ -175,5 +131,50 @@ class Menu extends Template
             }
         }
         return $html;
+    }
+
+    /**
+     * @param Tree           $tree
+     * @param ItemCollection $itemCollection
+     * @param int            $parentId
+     * @return Node
+     */
+    protected function getParentNode($tree, $itemCollection, $parentId)
+    {
+        if (($parentNode = $tree->getNodeById($parentId)) === null) {
+            /* @var $parentItem Item */
+            $parentItem = $itemCollection->getItemById($parentId);
+            $parentData = $parentItem->getData();
+            $parentNode = $tree->appendChild(
+                array_merge($parentData, ['renderer' => $parentItem->getRenderer()]),
+                $this->getParentNode($tree, $itemCollection, $parentData['parent_id'])
+            );
+        }
+        return $parentNode;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function _toHtml()
+    {
+        if (!$this->getMenu()->getId()) {
+            return '';
+        }
+        return parent::_toHtml();
+    }
+
+    /**
+     * @return Model
+     */
+    public function getMenu()
+    {
+        if ($this->menu === null) {
+            $this->menu = $this->menuFactory->create();
+            if ($this->getData('identifier')) {
+                $this->resourceMenu->load($this->menu, $this->getData('identifier'), 'identifier');
+            }
+        }
+        return $this->menu;
     }
 }

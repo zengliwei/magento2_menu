@@ -104,7 +104,9 @@
                 </param>
                 <param name="indexField" xsi:type="string">id</param>
                 <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">menu_item_listing.menu_item_listing.menu_item_columns.ids</param>
+                <param name="selectProvider" xsi:type="string">
+                    menu_item_listing.menu_item_listing.menu_item_columns.ids
+                </param>
             </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">

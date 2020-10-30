@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Ui\Component\Menu\Item;
 
 use Common\Menu\Model\ResourceModel\Menu\Item\Collection;
@@ -39,6 +40,30 @@ class Options implements OptionSourceInterface
     public function __construct(CollectionFactory $collectionFactory)
     {
         $this->collectionFactory = $collectionFactory;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toOptionArray()
+    {
+        if ($this->options === null) {
+            /* @var $itemCollection Collection */
+            $itemCollection = $this->collectionFactory->create();
+            $itemCollection->addOrder('main_table.order', Collection::SORT_ORDER_ASC);
+            $itemGroups = [];
+            foreach ($itemCollection as $item) {
+                if (!isset($itemGroups[$item->getData('parent_id')])) {
+                    $itemGroups[$item->getData('parent_id')] = [];
+                }
+                $itemGroups[$item->getData('parent_id')][] = $item;
+            }
+            $this->options = array_merge(
+                [['label' => '[ root ]', 'value' => 0]],
+                $this->collectOptions($itemGroups)
+            );
+        }
+        return $this->options;
     }
 
     /**
@@ -69,29 +94,5 @@ class Options implements OptionSourceInterface
             }
         }
         return $options;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function toOptionArray()
-    {
-        if ($this->options === null) {
-            /* @var $itemCollection Collection */
-            $itemCollection = $this->collectionFactory->create();
-            $itemCollection->addOrder('main_table.order', Collection::SORT_ORDER_ASC);
-            $itemGroups = [];
-            foreach ($itemCollection as $item) {
-                if (!isset($itemGroups[$item->getData('parent_id')])) {
-                    $itemGroups[$item->getData('parent_id')] = [];
-                }
-                $itemGroups[$item->getData('parent_id')][] = $item;
-            }
-            $this->options = array_merge(
-                [['label' => '[ root ]', 'value' => 0]],
-                $this->collectOptions($itemGroups)
-            );
-        }
-        return $this->options;
     }
 }

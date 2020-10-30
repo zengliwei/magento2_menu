@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Model\Menu\Item;
 
 class Type
@@ -38,6 +39,16 @@ class Type
     }
 
     /**
+     * @param string $name
+     * @return array|null
+     */
+    public function getType($name)
+    {
+        $this->getTypes();
+        return $this->types[$name] ?? null;
+    }
+
+    /**
      * @return array
      */
     public function getTypes()
@@ -51,15 +62,5 @@ class Type
             $this->types = $types;
         }
         return $this->types;
-    }
-
-    /**
-     * @param string $name
-     * @return array|null
-     */
-    public function getType($name)
-    {
-        $this->getTypes();
-        return $this->types[$name] ?? null;
     }
 }

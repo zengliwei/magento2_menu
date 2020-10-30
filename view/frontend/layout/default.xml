@@ -35,6 +35,6 @@
             </block>
         </referenceBlock>
         <referenceBlock name="catalog.topnav" remove="true"/>
-        <referenceBlock name="footer_links"  remove="true"/>
+        <referenceBlock name="footer_links" remove="true"/>
     </body>
 </page>

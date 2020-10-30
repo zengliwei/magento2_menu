@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Model\Menu\Item;
 
 use Common\Base\Model\AbstractDataProvider;
@@ -68,9 +69,12 @@ class DataProvider extends AbstractDataProvider
     /**
      * @inheritDoc
      */
-    protected function init()
+    public function getMeta()
     {
-        $this->initCollection(Collection::class);
+        $this->meta = ['general' => ['children' => []]];
+        $this->customizeTypes();
+        $this->customizeFunctionalUrls();
+        return parent::getMeta();
     }
 
     /**
@@ -154,11 +158,8 @@ class DataProvider extends AbstractDataProvider
     /**
      * @inheritDoc
      */
-    public function getMeta()
+    protected function init()
     {
-        $this->meta = ['general' => ['children' => []]];
-        $this->customizeTypes();
-        $this->customizeFunctionalUrls();
-        return parent::getMeta();
+        $this->initCollection(Collection::class);
     }
 }

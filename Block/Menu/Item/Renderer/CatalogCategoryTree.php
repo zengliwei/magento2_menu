@@ -15,6 +15,7 @@
  * OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
 namespace Common\Menu\Block\Menu\Item\Renderer;
 
 use Common\Menu\Block\Menu\Item;
@@ -22,8 +23,8 @@ use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\ResourceModel\Category\Collection;
 use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory;
 use Magento\Framework\Data\Tree;
-use Magento\Framework\Data\TreeFactory;
 use Magento\Framework\Data\Tree\Node;
+use Magento\Framework\Data\TreeFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 use Magento\Framework\View\Element\Context;
@@ -68,65 +69,6 @@ class CatalogCategoryTree extends AbstractRenderer
     }
 
     /**
-     * @param Node $node
-     * @param int  $level
-     * @return Item[]
-     * @throws LocalizedException
-     */
-    protected function collectBlocks($node, $level)
-    {
-        $blocks = [];
-        foreach ($node->getChildren() as $child) {
-            $blocks[] = $this->getLayout()->createBlock(
-                Item::class,
-                '',
-                [
-                    'data' => [
-                        'title'    => $child->getData('name'),
-                        'url'      => $child->getData('url'),
-                        'class'    => 'category-item',
-                        'level'    => $level,
-                        'children' => $this->collectBlocks($child, $level + 1)
-                    ]
-                ]
-            );
-        }
-        return $blocks;
-    }
-
-    /**
-     * @param Category $category
-     * @return Item[]
-     */
-    protected function getCategoryData($category)
-    {
-        return [
-            'id'        => $category->getId(),
-            'name'      => $category->getData('name'),
-            'url'       => $category->getUrl(),
-            'parent_id' => $category->getParentId()
-        ];
-    }
-
-    /**
-     * @param Tree               $tree
-     * @param AbstractCollection $collection
-     * @param int                $parentId
-     * @return Node
-     */
-    protected function getParentNode($tree, $collection, $parentId)
-    {
-        if (($parentNode = $tree->getNodeById($parentId)) === null) {
-            $parentData = $this->getCategoryData($collection->getItemById($parentId));
-            $parentNode = $tree->appendChild(
-                $parentData,
-                $this->getParentNode($tree, $collection, $parentData['parent_id'])
-            );
-        }
-        return $parentNode;
-    }
-
-    /**
      * @inheritDoc
      */
     protected function buildItemBlocks()
@@ -158,5 +100,64 @@ class CatalogCategoryTree extends AbstractRenderer
         }
 
         $this->itemBlocks = $this->collectBlocks($rootNode, $this->getData('level'));
+    }
+
+    /**
+     * @param Tree               $tree
+     * @param AbstractCollection $collection
+     * @param int                $parentId
+     * @return Node
+     */
+    protected function getParentNode($tree, $collection, $parentId)
+    {
+        if (($parentNode = $tree->getNodeById($parentId)) === null) {
+            $parentData = $this->getCategoryData($collection->getItemById($parentId));
+            $parentNode = $tree->appendChild(
+                $parentData,
+                $this->getParentNode($tree, $collection, $parentData['parent_id'])
+            );
+        }
+        return $parentNode;
+    }
+
+    /**
+     * @param Category $category
+     * @return Item[]
+     */
+    protected function getCategoryData($category)
+    {
+        return [
+            'id'        => $category->getId(),
+            'name'      => $category->getData('name'),
+            'url'       => $category->getUrl(),
+            'parent_id' => $category->getParentId()
+        ];
+    }
+
+    /**
+     * @param Node $node
+     * @param int  $level
+     * @return Item[]
+     * @throws LocalizedException
+     */
+    protected function collectBlocks($node, $level)
+    {
+        $blocks = [];
+        foreach ($node->getChildren() as $child) {
+            $blocks[] = $this->getLayout()->createBlock(
+                Item::class,
+                '',
+                [
+                    'data' => [
+                        'title'    => $child->getData('name'),
+                        'url'      => $child->getData('url'),
+                        'class'    => 'category-item',
+                        'level'    => $level,
+                        'children' => $this->collectBlocks($child, $level + 1)
+                    ]
+                ]
+            );
+        }
+        return $blocks;
     }
 }
