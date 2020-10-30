@@ -139,6 +139,17 @@
                 </editor>
             </settings>
         </column>
+        <column name="is_active" component="Magento_Ui/js/grid/columns/select">
+            <settings>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Is Active</label>
+                <options class="Magento\Config\Model\Config\Source\Yesno"/>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+            </settings>
+        </column>
         <column name="parent_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <filter>select</filter>
