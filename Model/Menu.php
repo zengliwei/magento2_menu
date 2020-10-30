@@ -20,6 +20,11 @@ namespace Common\Menu\Model;
 
 use Magento\Framework\Model\AbstractModel;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Menu extends AbstractModel
 {
     /**

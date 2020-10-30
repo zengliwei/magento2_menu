@@ -24,6 +24,11 @@ use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
 use Common\Menu\Model\ResourceModel\Menu\Item as ResourceItem;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class DefaultMenu implements DataPatchInterface
 {
     /**

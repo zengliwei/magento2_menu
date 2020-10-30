@@ -20,6 +20,11 @@ namespace Common\Menu\Block\Menu;
 
 use Magento\Framework\View\Element\Template;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Item extends Template
 {
     protected $_template = 'Common_Menu::menu/item.phtml';

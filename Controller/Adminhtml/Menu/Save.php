@@ -21,6 +21,11 @@ namespace Common\Menu\Controller\Adminhtml\Menu;
 use Common\Base\Controller\Adminhtml\AbstractSaveAction;
 use Common\Menu\Model\Menu;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Save extends AbstractSaveAction
 {
     /**

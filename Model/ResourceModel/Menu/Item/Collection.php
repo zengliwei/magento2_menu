@@ -22,6 +22,11 @@ use Common\Base\Model\ResourceModel\AbstractStoreCollection;
 use Common\Menu\Model\Menu\Item;
 use Common\Menu\Model\ResourceModel\Menu\Item as ResourceItem;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Collection extends AbstractStoreCollection
 {
     /**

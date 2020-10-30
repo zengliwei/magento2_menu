@@ -21,6 +21,11 @@ namespace Common\Menu\Ui\Component\Menu\Item;
 use Common\Menu\Model\Menu\Item\Type;
 use Magento\Framework\Data\OptionSourceInterface;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Types implements OptionSourceInterface
 {
     /**

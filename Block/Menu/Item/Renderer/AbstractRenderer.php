@@ -21,6 +21,11 @@ namespace Common\Menu\Block\Menu\Item\Renderer;
 use Common\Menu\Block\Menu\Item;
 use Magento\Framework\View\Element\AbstractBlock;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 abstract class AbstractRenderer extends AbstractBlock
 {
     /**

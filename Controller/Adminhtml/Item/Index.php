@@ -20,6 +20,11 @@ namespace Common\Menu\Controller\Adminhtml\Item;
 
 use Common\Base\Controller\Adminhtml\AbstractIndexAction;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Index extends AbstractIndexAction
 {
     public const ADMIN_RESOURCE = 'Common_Menu::menu_item';

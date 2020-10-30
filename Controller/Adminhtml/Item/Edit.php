@@ -21,6 +21,11 @@ namespace Common\Menu\Controller\Adminhtml\Item;
 use Common\Base\Controller\Adminhtml\AbstractEditAction;
 use Common\Menu\Model\Menu\Item;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Edit extends AbstractEditAction
 {
     public const ADMIN_RESOURCE = 'Common_Menu::menu_item';

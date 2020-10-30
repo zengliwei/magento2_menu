@@ -24,6 +24,11 @@ use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Item extends AbstractDb
 {
     /**

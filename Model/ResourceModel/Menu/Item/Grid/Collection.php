@@ -24,6 +24,11 @@ use Common\Menu\Model\ResourceModel\Menu\Item\Collection as ItemCollection;
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\View\Element\UiComponent\DataProvider\Document;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Collection extends ItemCollection implements SearchResultInterface
 {
     use AbstractCollection;

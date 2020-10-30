@@ -20,6 +20,11 @@ namespace Common\Menu\Ui\Component\Menu\Item;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class FunctionalUrls implements OptionSourceInterface
 {
     /**

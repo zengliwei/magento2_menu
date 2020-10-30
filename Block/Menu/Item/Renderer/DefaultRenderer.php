@@ -21,6 +21,11 @@ namespace Common\Menu\Block\Menu\Item\Renderer;
 use Common\Menu\Block\Menu\Item;
 use Magento\Framework\Data\Tree\Node;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class DefaultRenderer extends AbstractRenderer
 {
     /**

@@ -22,6 +22,11 @@ use Common\Menu\Model\ResourceModel\Menu\Item\Collection;
 use Common\Menu\Model\ResourceModel\Menu\Item\CollectionFactory;
 use Magento\Framework\Data\OptionSourceInterface;
 
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_banner
+ */
 class Options implements OptionSourceInterface
 {
     /**
