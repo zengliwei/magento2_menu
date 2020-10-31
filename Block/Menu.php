@@ -139,6 +139,20 @@ class Menu extends Template
     }
 
     /**
+     * @return Model
+     */
+    public function getMenu()
+    {
+        if ($this->menu === null) {
+            $this->menu = $this->menuFactory->create();
+            if ($this->getData('identifier')) {
+                $this->resourceMenu->load($this->menu, $this->getData('identifier'), 'identifier');
+            }
+        }
+        return $this->menu;
+    }
+
+    /**
      * @param Tree           $tree
      * @param ItemCollection $itemCollection
      * @param int            $parentId
@@ -167,19 +181,5 @@ class Menu extends Template
             return '';
         }
         return parent::_toHtml();
-    }
-
-    /**
-     * @return Model
-     */
-    public function getMenu()
-    {
-        if ($this->menu === null) {
-            $this->menu = $this->menuFactory->create();
-            if ($this->getData('identifier')) {
-                $this->resourceMenu->load($this->menu, $this->getData('identifier'), 'identifier');
-            }
-        }
-        return $this->menu;
     }
 }
