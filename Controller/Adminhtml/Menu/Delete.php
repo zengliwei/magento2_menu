@@ -24,7 +24,7 @@ use Common\Menu\Model\Menu;
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_menu
  */
 class Delete extends AbstractDeleteAction
 {

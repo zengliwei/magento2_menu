@@ -24,7 +24,7 @@ use Magento\Framework\View\Element\AbstractBlock;
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_menu
  */
 abstract class AbstractRenderer extends AbstractBlock
 {

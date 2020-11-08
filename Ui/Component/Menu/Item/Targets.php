@@ -16,28 +16,34 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Menu\Controller\Adminhtml\Menu;
+namespace Common\Menu\Ui\Component\Menu\Item;
 
-use Common\Base\Controller\Adminhtml\AbstractSaveAction;
-use Common\Menu\Model\Menu;
+use Magento\Framework\Data\OptionSourceInterface;
 
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_menu
  */
-class Save extends AbstractSaveAction
+class Targets implements OptionSourceInterface
 {
+    /**
+     * @var array
+     */
+    protected $options;
+
     /**
      * @inheritDoc
      */
-    public function execute()
+    public function toOptionArray()
     {
-        return $this->save(
-            Menu::class,
-            'Specified menu does not exist.',
-            'Menu saved successfully.',
-            'menu_menu'
-        );
+        if ($this->options === null) {
+            $this->options = [
+                ['label' => '_self', 'value' => '_self'],
+                ['label' => '_blank', 'value' => '_blank'],
+                ['label' => '_parent', 'value' => '_parent']
+            ];
+        }
+        return $this->options;
     }
 }

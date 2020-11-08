@@ -213,7 +213,29 @@
                 </select>
             </formElements>
         </field>
-        <field name="parent_id" formElement="select" sortOrder="500">
+        <field name="target" formElement="select" sortOrder="500">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <dataScope>data.target</dataScope>
+                <label translate="true">Target</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Ui\Component\Menu\Item\Targets"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="parent_id" formElement="select" sortOrder="600">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
@@ -235,7 +257,7 @@
                 </select>
             </formElements>
         </field>
-        <field name="order" formElement="input" sortOrder="600">
+        <field name="order" formElement="input" sortOrder="700">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>
@@ -250,7 +272,7 @@
                 </validation>
             </settings>
         </field>
-        <field name="store_ids" formElement="multiselect" sortOrder="700"
+        <field name="store_ids" formElement="multiselect" sortOrder="800"
                class="Magento\Store\Ui\Component\Form\Field\StoreView">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -274,7 +296,7 @@
                 </multiselect>
             </formElements>
         </field>
-        <field name="menu_id" formElement="select" sortOrder="800">
+        <field name="menu_id" formElement="select" sortOrder="900">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">data</item>

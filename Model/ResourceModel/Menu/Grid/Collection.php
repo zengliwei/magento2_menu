@@ -27,7 +27,7 @@ use Magento\Framework\View\Element\UiComponent\DataProvider\Document;
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_menu
  */
 class Collection extends MenuCollection implements SearchResultInterface
 {

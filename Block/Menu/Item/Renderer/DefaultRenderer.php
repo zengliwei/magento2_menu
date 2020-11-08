@@ -24,7 +24,7 @@ use Magento\Framework\Data\Tree\Node;
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_banner
+ * @url https://github.com/zengliwei/magento2_menu
  */
 class DefaultRenderer extends AbstractRenderer
 {
@@ -61,6 +61,7 @@ class DefaultRenderer extends AbstractRenderer
                     'data' => [
                         'title'    => $node->getData('title'),
                         'url'      => $url,
+                        'target'   => $node->getData('target'),
                         'level'    => $this->getData('level'),
                         'children' => $children
                     ]
