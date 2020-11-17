@@ -16,100 +16,84 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Menu\Block;
+namespace Common\Menu\Model;
 
+use Common\Menu\Api\MenuRepositoryInterface;
 use Common\Menu\Helper\Menu as MenuHelper;
-use Common\Menu\Model\Menu as Model;
-use Common\Menu\Model\MenuFactory;
 use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
-use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Framework\View\Element\Template;
-use Magento\Framework\View\Element\Template\Context;
+use Common\Menu\Model\ResourceModel\Menu\Collection as MenuCollection;
+use Common\Menu\Model\ResourceModel\Menu\CollectionFactory as MenuCollectionFactory;
+use Common\Menu\Model\ResourceModel\Menu\Item\CollectionFactory as MenuItemCollectionFactory;
 
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_menu
  */
-class Menu extends Template
+class MenuRepository implements MenuRepositoryInterface
 {
-    public const CACHE_KEY_PREFIX = 'MENU_BLOCK_';
-
     /**
-     * @var Model
+     * @var MenuCollectionFactory
      */
-    protected $menu;
+    private $menuCollectionFactory;
 
     /**
      * @var MenuFactory
      */
-    protected $menuFactory;
+    private $menuFactory;
 
     /**
      * @var MenuHelper
      */
-    protected $menuHelper;
+    private $menuHelper;
 
     /**
      * @var ResourceMenu
      */
-    protected $resourceMenu;
+    private $resourceMenu;
 
     /**
-     * @param MenuFactory  $menuFactory
-     * @param MenuHelper   $menuHelper
-     * @param ResourceMenu $resourceMenu
-     * @param Context      $context
-     * @param array        $data
+     * @var MenuItemCollectionFactory
+     */
+    private $menuItemCollectionFactory;
+
+    /**
+     * @param MenuCollectionFactory     $menuCollectionFactory
+     * @param MenuFactory               $menuFactory
+     * @param MenuHelper                $menuHelper
+     * @param ResourceMenu              $resourceMenu
+     * @param MenuItemCollectionFactory $menuItemCollectionFactory
      */
     public function __construct(
+        MenuCollectionFactory $menuCollectionFactory,
         MenuFactory $menuFactory,
         MenuHelper $menuHelper,
         ResourceMenu $resourceMenu,
-        Context $context,
-        array $data = []
+        MenuItemCollectionFactory $menuItemCollectionFactory
     ) {
+        $this->menuCollectionFactory = $menuCollectionFactory;
         $this->menuFactory = $menuFactory;
         $this->menuHelper = $menuHelper;
         $this->resourceMenu = $resourceMenu;
-        parent::__construct($context, $data);
-    }
-
-    /**
-     * @return string
-     * @throws NoSuchEntityException
-     */
-    public function getMenuItemHtml()
-    {
-        $html = '';
-        foreach ($this->menuHelper->getItemTree($this->getMenu()->getId()) as $item) {
-            $html .= $item->toHtml();
-        }
-        return $html;
-    }
-
-    /**
-     * @return Model
-     */
-    public function getMenu()
-    {
-        if ($this->menu === null) {
-            $this->menu = $this->menuFactory->create();
-            if ($this->getData('identifier')) {
-                $this->resourceMenu->load($this->menu, $this->getData('identifier'), 'identifier');
-            }
-        }
-        return $this->menu;
+        $this->menuItemCollectionFactory = $menuItemCollectionFactory;
     }
 
     /**
      * @inheritDoc
      */
-    protected function _toHtml()
+    public function getMenus()
     {
-        if (!$this->getMenu()->getId()) {
-            return '';
-        }
-        return parent::_toHtml();
+        /* @var MenuCollection $menuCollection */
+        return $this->menuCollectionFactory->create();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getItemTree($identifier, $storeId = null)
+    {
+        $menu = $this->menuFactory->create();
+        $this->resourceMenu->load($menu, $identifier, 'identifier');
+        return $this->menuHelper->getItemTree($menu->getId(), $storeId);
     }
 }

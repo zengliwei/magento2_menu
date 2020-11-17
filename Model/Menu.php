@@ -18,6 +18,7 @@
 
 namespace Common\Menu\Model;
 
+use Common\Menu\Api\Data\MenuInterface;
 use Magento\Framework\Model\AbstractModel;
 
 /**
@@ -25,8 +26,40 @@ use Magento\Framework\Model\AbstractModel;
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_menu
  */
-class Menu extends AbstractModel
+class Menu extends AbstractModel implements MenuInterface
 {
+    /**
+     * @inheritDoc
+     */
+    public function getName()
+    {
+        return $this->getData(self::FIELD_NAME);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setName($name)
+    {
+        return $this->setData(self::FIELD_NAME, $name);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIdentifier()
+    {
+        return $this->getData(self::FIELD_IDENTIFIER);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setIdentifier($identifier)
+    {
+        return $this->setData(self::FIELD_IDENTIFIER, $identifier);
+    }
+
     /**
      * {@inheritDoc}
      */

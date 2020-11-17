@@ -16,65 +16,47 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Menu\Block\Menu;
-
-use Common\Menu\Api\Data\MenuItemInterface;
-use Magento\Framework\View\Element\Template;
+namespace Common\Menu\Api\Data;
 
 /**
- * @package Common\Menu
- * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_menu
+ * @api
  */
-class Item extends Template implements MenuItemInterface
+interface MenuItemInterface
 {
-    protected $_template = 'Common_Menu::menu/item.phtml';
+    public const CHILDREN = 'children';
+    public const FIELD_CLASS = 'class';
+    public const FIELD_LEVEL = 'level';
+    public const FIELD_LINK = 'url';
+    public const FIELD_TARGET = 'target';
+    public const FIELD_TITLE = 'title';
 
     /**
-     * @inheritDoc
+     * @return \Common\Menu\Api\Data\MenuItemInterface[]
      */
-    public function getChildren()
-    {
-        return $this->getData(self::CHILDREN);
-    }
+    public function getChildren();
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function getClass()
-    {
-        return $this->getData(self::FIELD_CLASS);
-    }
+    public function getClass();
 
     /**
-     * @inheritDoc
+     * @return int
      */
-    public function getLevel()
-    {
-        return $this->getData(self::FIELD_LEVEL);
-    }
+    public function getLevel();
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function getLink()
-    {
-        return $this->getData(self::FIELD_LINK);
-    }
+    public function getLink();
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function getTarget()
-    {
-        return $this->getData(self::FIELD_TARGET);
-    }
+    public function getTarget();
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function getTitle()
-    {
-        return $this->getData(self::FIELD_TITLE);
-    }
+    public function getTitle();
 }

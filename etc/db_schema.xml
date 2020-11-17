@@ -52,7 +52,7 @@
         <column xsi:type="varchar" name="type" comment="Type"
                 nullable="false" length="32" default="default"/>
         <column xsi:type="varchar" name="url" comment="URL"
-                nullable="true" length="255" />
+                nullable="true" length="255"/>
         <column xsi:type="varchar" name="target" comment="Target"
                 nullable="true" length="8"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

@@ -18,6 +18,7 @@
 
 namespace Common\Menu\Model\ResourceModel\Menu;
 
+use Common\Menu\Api\Data\MenuCollectionInterface;
 use Common\Menu\Model\Menu;
 use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
@@ -27,7 +28,7 @@ use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_menu
  */
-class Collection extends AbstractCollection
+class Collection extends AbstractCollection implements MenuCollectionInterface
 {
     /**
      * @var string

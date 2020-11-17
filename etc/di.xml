@@ -17,6 +17,16 @@
   -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Common\Menu\Api\MenuRepositoryInterface"
+                type="Common\Menu\Model\MenuRepository"/>
+    <preference for="Common\Menu\Api\Data\MenuCollectionInterface"
+                type="Common\Menu\Model\ResourceModel\Menu\Collection"/>
+    <preference for="Common\Menu\Api\Data\MenuInterface"
+                type="Common\Menu\Model\Menu"/>
+    <preference for="Common\Menu\Api\Data\MenuItemInterface"
+                type="Common\Menu\Block\Menu\Item"/>
+
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
@@ -29,4 +39,5 @@
             </argument>
         </arguments>
     </type>
+
 </config>

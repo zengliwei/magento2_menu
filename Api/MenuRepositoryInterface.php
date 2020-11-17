@@ -16,65 +16,28 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Menu\Block\Menu;
-
-use Common\Menu\Api\Data\MenuItemInterface;
-use Magento\Framework\View\Element\Template;
+namespace Common\Menu\Api;
 
 /**
- * @package Common\Menu
- * @author  Zengliwei <zengliwei@163.com>
- * @url https://github.com/zengliwei/magento2_menu
+ * Get menu data
+ *
+ * @api
  */
-class Item extends Template implements MenuItemInterface
+interface MenuRepositoryInterface
 {
-    protected $_template = 'Common_Menu::menu/item.phtml';
+    /**
+     * Get menu list
+     *
+     * @return \Common\Menu\Api\Data\MenuCollectionInterface
+     */
+    public function getMenus();
 
     /**
-     * @inheritDoc
+     * Get menu items of specified menu
+     *
+     * @param string          $identifier
+     * @param int|string|null $storeId
+     * @return \Common\Menu\Api\Data\MenuItemInterface[]
      */
-    public function getChildren()
-    {
-        return $this->getData(self::CHILDREN);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getClass()
-    {
-        return $this->getData(self::FIELD_CLASS);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLevel()
-    {
-        return $this->getData(self::FIELD_LEVEL);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getLink()
-    {
-        return $this->getData(self::FIELD_LINK);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTarget()
-    {
-        return $this->getData(self::FIELD_TARGET);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getTitle()
-    {
-        return $this->getData(self::FIELD_TITLE);
-    }
+    public function getItemTree($identifier, $storeId = null);
 }
