@@ -19,8 +19,7 @@
 use Common\Menu\Block\Menu;
 
 /* @var $block Menu */
-
 ?>
-<ul class="footer links">
+<ul class="footer links <?= $block->getNameInLayout() ?>">
     <?= $block->getMenuItemHtml() ?>
 </ul>

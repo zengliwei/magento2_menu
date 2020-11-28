@@ -18,64 +18,17 @@
 
 namespace Common\Menu\Setup\Patch\Data;
 
-use Common\Menu\Model\Menu\ItemFactory;
-use Common\Menu\Model\MenuFactory;
-use Common\Menu\Model\ResourceModel\Menu as ResourceMenu;
-use Common\Menu\Model\ResourceModel\Menu\Item as ResourceItem;
-use Magento\Framework\Setup\Patch\DataPatchInterface;
+use Common\Base\Setup\Patch\AbstractData;
+use Common\Menu\Setup\Patch\TraitMenuData;
 
 /**
  * @package Common\Menu
  * @author  Zengliwei <zengliwei@163.com>
  * @url https://github.com/zengliwei/magento2_menu
  */
-class DefaultMenu implements DataPatchInterface
+class DefaultMenu extends AbstractData
 {
-    /**
-     * @var MenuFactory
-     */
-    private $menuFactory;
-
-    /**
-     * @var ItemFactory
-     */
-    private $itemFactory;
-
-    /**
-     * @var ResourceMenu
-     */
-    private $resourceMenu;
-
-    /**
-     * @var ResourceItem
-     */
-    private $resourceItem;
-
-    /**
-     * @param MenuFactory  $menuFactory
-     * @param ItemFactory  $itemFactory
-     * @param ResourceMenu $resourceMenu
-     * @param ResourceItem $resourceItem
-     */
-    public function __construct(
-        MenuFactory $menuFactory,
-        ItemFactory $itemFactory,
-        ResourceMenu $resourceMenu,
-        ResourceItem $resourceItem
-    ) {
-        $this->menuFactory = $menuFactory;
-        $this->itemFactory = $itemFactory;
-        $this->resourceMenu = $resourceMenu;
-        $this->resourceItem = $resourceItem;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getDependencies()
-    {
-        return [];
-    }
+    use TraitMenuData;
 
     /**
      * {@inheritdoc}
@@ -101,21 +54,9 @@ class DefaultMenu implements DataPatchInterface
             ]
         ];
         foreach ($menuSource as $menuData) {
-            $menu = $this->menuFactory->create();
-            $this->resourceMenu->save($menu->setData($menuData['data']));
-            foreach ($menuData['items'] as $itemData) {
-                $itemData['menu_id'] = $menu->getId();
-                $item = $this->itemFactory->create();
-                $this->resourceItem->save($item->setData($itemData));
-            }
+            $menu = $this->createMenuModel();
+            $this->saveMenu($menu->setData($menuData['data']));
+            $this->appendMenuItemTree($menuData['items'], $menu->getId());
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAliases()
-    {
-        return [];
     }
 }

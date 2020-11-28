@@ -36,7 +36,7 @@ class DefaultRenderer extends AbstractRenderer
         /* @var $node Node */
         $node = $this->getData('node');
 
-        $url = preg_match('/^https?:\/\//', $node->getData('url'))
+        $url = preg_match('/^(?:https?:\/\/)|(?:javascript:)/', $node->getData('url'))
             ? $node->getData('url')
             : $this->_urlBuilder->getBaseUrl() . trim($node->getData('url'), '/');
 

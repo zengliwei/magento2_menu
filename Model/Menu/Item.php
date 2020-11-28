@@ -23,6 +23,7 @@ use Magento\Framework\Data\Collection\AbstractDb;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
+use Magento\Store\Model\StoreManagerInterface;
 
 class Item extends AbstractStoreModel
 {
@@ -33,6 +34,7 @@ class Item extends AbstractStoreModel
 
     /**
      * @param Item\Type             $type
+     * @param StoreManagerInterface $storeManager
      * @param Context               $context
      * @param Registry              $registry
      * @param AbstractResource|null $resource
@@ -41,6 +43,7 @@ class Item extends AbstractStoreModel
      */
     public function __construct(
         Item\Type $type,
+        StoreManagerInterface $storeManager,
         Context $context,
         Registry $registry,
         AbstractResource $resource = null,
@@ -48,7 +51,7 @@ class Item extends AbstractStoreModel
         array $data = []
     ) {
         $this->type = $type;
-        parent::__construct($context, $registry, $resource, $resourceCollection, $data);
+        parent::__construct($storeManager, $context, $registry, $resource, $resourceCollection, $data);
     }
 
     /**

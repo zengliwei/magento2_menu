@@ -26,6 +26,6 @@
              title="Menus" translate="title" sortOrder="10" action="menu/menu"/>
         <add id="Common_Menu::menu_item" module="Common_Menu"
              parent="Common_Menu::menu" resource="Common_Menu::menu_item"
-             title="Items" translate="title" sortOrder="20" action="menu/item"/>
+             title="Menu Items" translate="title" sortOrder="20" action="menu/item"/>
     </menu>
 </config>

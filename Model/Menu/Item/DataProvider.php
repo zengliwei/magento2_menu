@@ -22,6 +22,10 @@ use Common\Base\Model\AbstractDataProvider;
 use Common\Menu\Model\ResourceModel\Menu\Item\Collection;
 use Common\Menu\Ui\Component\Menu\Item\FunctionalUrls;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Filesystem;
+use Magento\Framework\ObjectManagerInterface;
+use Magento\Store\Model\StoreManagerInterface;
 use Magento\Ui\DataProvider\Modifier\PoolInterface;
 
 class DataProvider extends AbstractDataProvider
@@ -44,10 +48,14 @@ class DataProvider extends AbstractDataProvider
      * @param string                 $requestFieldName
      * @param FunctionalUrls         $functionalUrls
      * @param DataPersistorInterface $dataPersistor
+     * @param StoreManagerInterface  $storeManager
+     * @param Filesystem             $filesystem
+     * @param ObjectManagerInterface $objectManager
      * @param Type                   $itemType
      * @param array                  $meta
      * @param array                  $data
      * @param PoolInterface|null     $pool
+     * @throws FileSystemException
      */
     public function __construct(
         $name,
@@ -55,15 +63,28 @@ class DataProvider extends AbstractDataProvider
         $requestFieldName,
         FunctionalUrls $functionalUrls,
         DataPersistorInterface $dataPersistor,
+        StoreManagerInterface $storeManager,
+        Filesystem $filesystem,
+        ObjectManagerInterface $objectManager,
         Type $itemType,
         array $meta = [],
         array $data = [],
         PoolInterface $pool = null
     ) {
-        parent::__construct($name, $primaryFieldName, $requestFieldName, $dataPersistor, $meta, $data, $pool);
-
         $this->functionalUrls = $functionalUrls;
         $this->itemType = $itemType;
+        parent::__construct(
+            $name,
+            $primaryFieldName,
+            $requestFieldName,
+            $dataPersistor,
+            $storeManager,
+            $filesystem,
+            $objectManager,
+            $meta,
+            $data,
+            $pool
+        );
     }
 
     /**

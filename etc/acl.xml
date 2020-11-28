@@ -23,7 +23,7 @@
                 <resource id="Magento_Backend::content">
                     <resource id="Common_Menu::menu" title="Menu" translate="title" sortOrder="10">
                         <resource id="Common_Menu::menu_menu" title="Menus" translate="title" sortOrder="10"/>
-                        <resource id="Common_Menu::menu_item" title="Items" translate="title" sortOrder="20"/>
+                        <resource id="Common_Menu::menu_item" title="Menu Items" translate="title" sortOrder="20"/>
                     </resource>
                 </resource>
             </resource>

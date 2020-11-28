@@ -88,12 +88,15 @@ class Menu
 
         /* @var Tree $tree Item model tree */
         $tree = $this->treeFactory->create();
-        $rootNode = new Node(['id' => 0], 'id', $tree);
-        $tree->addNode($rootNode);
+        $rootNode = $tree->addNode(new Node(['id' => 0], 'id', $tree));
         foreach ($itemCollection as $item) {
             /* @var $item Item */
-            $parentNode = $this->getParentNode($tree, $itemCollection, $item->getData('parent_id'));
-            $tree->appendChild(array_merge($item->getData(), ['renderer' => $item->getRenderer()]), $parentNode);
+            if ($tree->getNodeById($item->getId()) === null) {
+                $tree->appendChild(
+                    array_merge($item->getData(), ['renderer' => $item->getRenderer()]),
+                    $this->getParentNode($tree, $itemCollection, $item->getData('parent_id'))
+                );
+            }
         }
 
         $itemBlocks = [];
@@ -122,10 +125,9 @@ class Menu
         if (($parentNode = $tree->getNodeById($parentId)) === null) {
             /* @var $parentItem Item */
             $parentItem = $itemCollection->getItemById($parentId);
-            $parentData = $parentItem->getData();
             $parentNode = $tree->appendChild(
-                array_merge($parentData, ['renderer' => $parentItem->getRenderer()]),
-                $this->getParentNode($tree, $itemCollection, $parentData['parent_id'])
+                array_merge($parentItem->getData(), ['renderer' => $parentItem->getRenderer()]),
+                $this->getParentNode($tree, $itemCollection, $parentItem->getData('parent_id'))
             );
         }
         return $parentNode;

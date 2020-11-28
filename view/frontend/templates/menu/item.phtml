@@ -30,7 +30,7 @@ $hasChild = !empty($children);
         <span><?= $block->getData('title') ?></span>
     </a>
     <?php if ($hasChild) : ?>
-        <ul class="submenu level<?= $level ?>">
+        <ul class="submenu level<?= $level + 1 ?>">
             <?php foreach ($children as $child) : ?>
                 <?= $child->toHtml() ?>
             <?php endforeach ?>
