@@ -43,6 +43,8 @@
                 unsigned="true" nullable="false" default="0"/>
         <column xsi:type="boolean" name="is_active" comment="Is Active"
                 nullable="false" default="1"/>
+        <column xsi:type="varchar" name="visibility" comment="Visibility"
+                nullable="false" length="255" default="0"/>
         <column xsi:type="varchar" name="store_ids" comment="Store IDs"
                 nullable="false" length="255" default="0"/>
         <column xsi:type="smallint" name="order" comment="Sort Order"

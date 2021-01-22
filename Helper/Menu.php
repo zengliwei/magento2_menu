@@ -35,22 +35,27 @@ class Menu
     /**
      * @var ItemCollectionFactory
      */
-    protected $itemCollectionFactory;
+    protected ItemCollectionFactory $itemCollectionFactory;
 
     /**
      * @var LayoutInterface
      */
-    protected $layout;
+    protected LayoutInterface $layout;
 
     /**
      * @var StoreManagerInterface
      */
-    protected $storeManager;
+    protected StoreManagerInterface $storeManager;
 
     /**
      * @var TreeFactory
      */
-    protected $treeFactory;
+    protected TreeFactory $treeFactory;
+
+    /**
+     * @var array
+     */
+    protected array $menus = [];
 
     /**
      * @param ItemCollectionFactory $itemCollectionFactory
@@ -80,38 +85,43 @@ class Menu
      */
     public function getItemTree($menuId, $storeId = null)
     {
-        /* @var $itemCollection ItemCollection */
-        $itemCollection = $this->itemCollectionFactory->create();
-        $itemCollection->addStoreFilter($this->storeManager->getStore($storeId))
-            ->addFieldToFilter('menu_id', ['eq' => $menuId])
-            ->addOrder('main_table.order', ItemCollection::SORT_ORDER_ASC);
+        if (!isset($this->menus[$menuId])) {
+            /* @var $itemCollection ItemCollection */
+            $itemCollection = $this->itemCollectionFactory->create();
+            $itemCollection->addStoreFilter($this->storeManager->getStore($storeId))
+                ->addFieldToFilter('menu_id', ['eq' => $menuId])
+                ->addFieldToFilter('is_active', ['eq' => true])
+                ->addOrder('main_table.order', ItemCollection::SORT_ORDER_ASC);
 
-        /* @var Tree $tree Item model tree */
-        $tree = $this->treeFactory->create();
-        $rootNode = $tree->addNode(new Node(['id' => 0], 'id', $tree));
-        foreach ($itemCollection as $item) {
-            /* @var $item Item */
-            if ($tree->getNodeById($item->getId()) === null) {
-                $tree->appendChild(
-                    array_merge($item->getData(), ['renderer' => $item->getRenderer()]),
-                    $this->getParentNode($tree, $itemCollection, $item->getData('parent_id'))
+            /* @var Tree $tree Item model tree */
+            $tree = $this->treeFactory->create();
+            $rootNode = $tree->addNode(new Node(['id' => 0], 'id', $tree));
+            foreach ($itemCollection as $item) {
+                /* @var $item Item */
+                if ($tree->getNodeById($item->getId()) === null) {
+                    $tree->appendChild(
+                        array_merge($item->getData(), ['renderer' => $item->getRenderer()]),
+                        $this->getParentNode($tree, $itemCollection, $item->getData('parent_id'))
+                    );
+                }
+            }
+
+            $itemBlocks = [];
+            foreach ($rootNode->getChildren() as $node) {
+                /* @var $renderer AbstractRenderer */
+                $renderer = $this->layout->createBlock(
+                    $node->getData('renderer'),
+                    'menu_item_renderer_' . $node->getData('id'),
+                    ['data' => ['node' => $node, 'level' => 0]]
                 );
+                foreach ($renderer->getItemBlocks() as $itemBlock) {
+                    $itemBlocks[] = $itemBlock;
+                }
             }
+            $this->menus[$menuId] = $itemBlocks;
         }
 
-        $itemBlocks = [];
-        foreach ($rootNode->getChildren() as $node) {
-            /* @var $renderer AbstractRenderer */
-            $renderer = $this->layout->createBlock(
-                $node->getData('renderer'),
-                'menu_item_renderer_' . $node->getData('id'),
-                ['data' => ['node' => $node, 'level' => 0]]
-            );
-            foreach ($renderer->getItemBlocks() as $itemBlock) {
-                $itemBlocks[] = $itemBlock;
-            }
-        }
-        return $itemBlocks;
+        return $this->menus[$menuId];
     }
 
     /**

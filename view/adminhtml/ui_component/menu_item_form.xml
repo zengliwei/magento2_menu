@@ -163,6 +163,28 @@
                 </validation>
             </settings>
         </field>
+        <field name="Visibility" formElement="select" sortOrder="210">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">data</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>int</dataType>
+                <dataScope>data.visibility</dataScope>
+                <label translate="true">Visibility</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Common\Menu\Ui\Component\Menu\Item\Visibilities"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
         <field name="type" formElement="select" sortOrder="300">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

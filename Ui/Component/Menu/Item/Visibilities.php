@@ -16,51 +16,27 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Common\Menu\Model\Menu\Item;
+namespace Common\Menu\Ui\Component\Menu\Item;
 
-class Type
+use Common\Menu\Model\Menu\Item;
+use Magento\Framework\Data\OptionSourceInterface;
+
+/**
+ * @package Common\Menu
+ * @author  Zengliwei <zengliwei@163.com>
+ * @url https://github.com/zengliwei/magento2_menu
+ */
+class Visibilities implements OptionSourceInterface
 {
     /**
-     * @var Type\Config
+     * @inheritDoc
      */
-    protected Type\Config $config;
-
-    /**
-     * @var string[]
-     */
-    protected $types;
-
-    /**
-     * @param Type\Config $config
-     */
-    public function __construct(Type\Config $config)
+    public function toOptionArray()
     {
-        $this->config = $config;
-    }
-
-    /**
-     * @param string $name
-     * @return array|null
-     */
-    public function getType($name)
-    {
-        $this->getTypes();
-        return $this->types[$name] ?? null;
-    }
-
-    /**
-     * @return array
-     */
-    public function getTypes()
-    {
-        if ($this->types === null) {
-            $types = [];
-            foreach ($this->config->getAll() as $info) {
-                $info['label'] = __($info['label']);
-                $types[$info['name']] = $info;
-            }
-            $this->types = $types;
-        }
-        return $this->types;
+        return [
+            ['label' => __('All Situation'), 'value' => Item::VISIBILITY_ALL],
+            ['label' => __('Guest'), 'value' => Item::VISIBILITY_GUEST],
+            ['label' => __('Logged in Customer'), 'value' => Item::VISIBILITY_LOGGED_IN]
+        ];
     }
 }

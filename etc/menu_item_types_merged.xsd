@@ -16,16 +16,42 @@
   ~ OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:redefine schemaLocation="urn:magento:module:Common_Menu:etc/menu_item_types.xsd">
-        <xs:complexType name="typeDeclaration">
-            <xs:complexContent>
-                <xs:restriction base="typeDeclaration">
-                    <xs:attribute name="name" type="xs:string" use="required"/>
-                    <xs:attribute name="label" type="xs:string" use="required"/>
-                    <xs:attribute name="sort_order" type="xs:int" use="optional" default="9999"/>
-                    <xs:attribute name="renderer" type="className" use="optional"/>
-                </xs:restriction>
-            </xs:complexContent>
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="type" type="typeDeclaration" minOccurs="1" maxOccurs="unbounded">
+                    <xs:unique name="uniqueTypeName">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Type name must be unique.
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:selector xpath="type"/>
+                        <xs:field xpath="@name"/>
+                    </xs:unique>
+                </xs:element>
+            </xs:choice>
         </xs:complexType>
-    </xs:redefine>
+    </xs:element>
+    <xs:complexType name="typeDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Menu item type declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:string" use="required"/>
+        <xs:attribute name="sort_order" type="xs:int" use="optional" default="9999"/>
+        <xs:attribute name="renderer" type="className" use="optional"/>
+    </xs:complexType>
+    <xs:simpleType name="className">
+        <xs:annotation>
+            <xs:documentation>
+                Class name can contain only ([\\]?[a-zA-Z_][a-zA-Z0-9_]*)+.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([\\]?[a-zA-Z_][a-zA-Z0-9_]*)+"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

@@ -19,12 +19,18 @@
 use Common\Menu\Block\Menu\Item;
 
 /* @var $block Item */
+$itemId = $block->getData('item_id');
 $level = $block->getData('level');
 $class = $block->getData('class');
 $children = $block->getData('children');
 $hasChild = !empty($children);
 ?>
-<li class="<?= $class ?> level<?= $level ?> <?= $level == 0 ? 'level-top' : '' ?> <?= $hasChild ? 'parent' : '' ?>">
+<li class="
+    item-<?= $itemId ?>
+    level<?= $level ?>
+    <?= $class ?>
+    <?= $level == 0 ? 'level-top' : '' ?>
+    <?= $hasChild ? 'parent' : '' ?>">
     <a <?= $block->getData('target') ? ('target="' . $block->getData('target') . '"') : '' ?>
         href="<?= $block->getData('url') ?>" <?= $level == 0 ? 'class="level-top"' : '' ?>>
         <span><?= $block->getData('title') ?></span>

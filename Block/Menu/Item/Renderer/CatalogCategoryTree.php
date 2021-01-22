@@ -27,7 +27,6 @@ use Magento\Framework\Data\Tree\Node;
 use Magento\Framework\Data\TreeFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Magento\Framework\View\Element\Context;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**

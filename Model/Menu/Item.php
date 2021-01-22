@@ -27,10 +27,14 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class Item extends AbstractStoreModel
 {
+    public const VISIBILITY_ALL = '0';
+    public const VISIBILITY_GUEST = '1';
+    public const VISIBILITY_LOGGED_IN = '2';
+
     /**
      * @var Item\Type
      */
-    protected $type;
+    protected Item\Type $type;
 
     /**
      * @param Item\Type             $type

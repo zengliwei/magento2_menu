@@ -59,6 +59,7 @@ class DefaultRenderer extends AbstractRenderer
                 '',
                 [
                     'data' => [
+                        'item_id'  => $node->getData('id'),
                         'title'    => $node->getData('title'),
                         'url'      => $url,
                         'target'   => $node->getData('target'),

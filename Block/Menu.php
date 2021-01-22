@@ -43,17 +43,17 @@ class Menu extends Template
     /**
      * @var MenuFactory
      */
-    protected $menuFactory;
+    protected MenuFactory $menuFactory;
 
     /**
      * @var MenuHelper
      */
-    protected $menuHelper;
+    protected MenuHelper $menuHelper;
 
     /**
      * @var ResourceMenu
      */
-    protected $resourceMenu;
+    protected ResourceMenu $resourceMenu;
 
     /**
      * @param MenuFactory  $menuFactory

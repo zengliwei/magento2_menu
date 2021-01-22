@@ -41,7 +41,7 @@ class Reader extends Filesystem
         SchemaLocator $schemaLocator,
         ValidationStateInterface $validationState,
         $fileName = 'menu_item_types.xml',
-        $idAttributes = [],
+        $idAttributes = ['/config/type' => 'name'],
         $domDocumentClass = Dom::class,
         $defaultScope = 'global'
     ) {

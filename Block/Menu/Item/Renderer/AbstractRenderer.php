@@ -19,6 +19,9 @@
 namespace Common\Menu\Block\Menu\Item\Renderer;
 
 use Common\Menu\Block\Menu\Item;
+use Common\Menu\Model\Menu\Item as ItemModel;
+use Magento\Customer\Model\Session as CustomerSession;
+use Magento\Framework\Data\Tree\Node;
 use Magento\Framework\View\Element\AbstractBlock;
 
 /**
@@ -29,9 +32,24 @@ use Magento\Framework\View\Element\AbstractBlock;
 abstract class AbstractRenderer extends AbstractBlock
 {
     /**
+     * @var CustomerSession
+     */
+    protected CustomerSession $customerSession;
+
+    /**
      * @var Item[]
      */
     protected $itemBlocks;
+
+    /**
+     * @param Context $context
+     * @param array   $data
+     */
+    public function __construct(Context $context, array $data = [])
+    {
+        $this->customerSession = $context->getCustomerSession();
+        parent::__construct($context, $data);
+    }
 
     /**
      * @return Item[]
@@ -39,7 +57,29 @@ abstract class AbstractRenderer extends AbstractBlock
     public function getItemBlocks()
     {
         if ($this->itemBlocks === null) {
-            $this->buildItemBlocks();
+            /* @var $node Node */
+            $node = $this->getData('node');
+            switch ($node->getData('visibility')) {
+                case ItemModel::VISIBILITY_ALL:
+                    $this->buildItemBlocks();
+                    break;
+
+                case ItemModel::VISIBILITY_GUEST:
+                    if ($this->customerSession->isLoggedIn()) {
+                        $this->itemBlocks = [];
+                    } else {
+                        $this->buildItemBlocks();
+                    }
+                    break;
+
+                case ItemModel::VISIBILITY_LOGGED_IN:
+                    if ($this->customerSession->isLoggedIn()) {
+                        $this->buildItemBlocks();
+                    } else {
+                        $this->itemBlocks = [];
+                    }
+                    break;
+            }
         }
         return $this->itemBlocks;
     }
